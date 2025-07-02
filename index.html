@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometric Function Visualizer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.7.0/math.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="custom">
+            <div class="custom-equation-input">
+                <i id="closeBtn" class="fas fa-times close-icon"></i>
+                <input type="text" id="customEquation"
+                    placeholder="Enter equation (e.g., 3*sin(5*x+4) + 4*x^2 - 5*exp(4*x))">
+
+                <div class="equation-error" id="equationError"></div>
+            </div>
+            <div class="calculator-keypad">
+                <button data-value="sin(">sin</button>
+                <button data-value="cos(">cos</button>
+                <button data-value="tan(">tan</button>
+                <button data-value="exp(">exp</button>
+                <button data-value="log(">log</button>
+                <button data-value="sqrt(">√</button>
+
+                <button data-value="pi">π</button>
+                <button data-value="e">e</button>
+                <button data-value="x">x</button>
+                <button data-value="^">^</button>
+                <button data-value="(">(</button>
+                <button data-value=")">)</button>
+                <button data-value="C">C</button>
+
+                <!-- <button data-value="⌫">⌫</button> -->
+                <button data-value="⌫"><i class="fas fa-delete-left"></i></button>
+                <button data-value="+">+</button>
+                <button data-value="-">-</button>
+                <button data-value="7">7</button>
+
+                <button data-value="8">8</button>
+
+                <button data-value="9">9</button>
+                <button data-value="*">*</button>
+                <button data-value="4">4</button>
+
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+                <button data-value="/">/</button>
+
+
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+                <button data-value=".">.</button>
+                <button data-value="0">0</button>
+                <button data-value=" ">Space</button>
+                <button data-value="=">=</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="controls">
+                <div class="control-group">
+                    <h2><i class="fas fa-sliders-h"></i> Function Parameters</h2>
+                    <div class="input-row">
+                        <label for="funcType">f(x) =</label>
+                        <select id="funcType">
+                            <option value="sin">Asin(ωx + p) + B</option>
+                            <option value="cos">Acos(ωx + p) + B</option>
+                            <option value="tan">Atang(ωx + p) + B</option>
+                            <option value="pow">Ax³ + Bx² + Cx + D</option>
+                            <option value="exp">Aeᵇˣ</option>
+                            <option value="custom">Custom Equation</option>
+                            <div value="exp">
+                                <p>
+                                    <var>a<sup>2</sup></var> + <var>b<sup>2</sup></var> = <var>c<sup>2</sup></var>
+
+                                </p>
+                            </div>
+                        </select>
+                    </div>
+                    <div class="grid-stack">
+                        <div id="trigonomethry" class="toggleElement active">
+
+
+                            <div class="input-row">
+                                <label for="amplitude">A:</label>
+                                <input type="range" id="amplitude" min="-5" max="5" step="0.1" value="1">
+                                <span id="amplitudeValue" class="value-display">1.0</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="frequency">ω:</label>
+                                <input type="range" id="frequency" min="0.1" max="3" step="0.1" value="1">
+                                <span id="frequencyValue" class="value-display">1.0</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="phase">p:</label>
+                                <input type="range" id="phase" min="-3.14" max="3.14" step="0.01" value="0">
+                                <span id="phaseValue" class="value-display">0.00</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="constant">B:</label>
+                                <input type="range" id="constant" min="-2" max="2" step="0.1" value="0">
+                                <span id="constantValue" class="value-display">0.0</span>
+                            </div>
+                        </div>
+                        <div id="pow" class="toggleElement">
+                            <div class="input-row">
+                                <label for="amplitude">A:</label>
+                                <input type="range" id="Ax3" min="-5" max="5" step="0.1" value="1">
+                                <span id="Avalue" class="value-display">1.0</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="frequency">B:</label>
+                                <input type="range" id="Bx2" min="-5" max="5" step="0.1" value="1">
+                                <span id="Bvalue" class="value-display">1.0</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="phase">C:</label>
+                                <input type="range" id="Cx" min="-5" max="5" step="0.01" value="0">
+                                <span id="Cvalue" class="value-display">0.00</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="constant">D:</label>
+                                <input type="range" id="Dx0" min="-5" max="5" step="0.1" value="0">
+                                <span id="Dvalue" class="value-display">0.0</span>
+                            </div>
+                        </div>
+                        <div id="exp" class="toggleElement">
+                            <div class="input-row">
+                                <label for="amplitude">A:</label>
+                                <input type="range" id="Ae" min="-5" max="5" step="0.1" value="1">
+                                <span id="AeValue" class="value-display">1.0</span>
+                            </div>
+
+                            <div class="input-row">
+                                <label for="frequency">B:</label>
+                                <input type="range" id="eBx" min="-5" max="5" step="0.1" value="1">
+                                <span id="BeValue" class="value-display">1.0</span>
+                            </div>
+                        </div>
+                        <div id="exp" class="toggleElement">
+                            <div class="input-row">
+                                <label for="amplitude">A:</label>
+                                <input type="range" id="Ae" min="-5" max="5" step="0.1" value="1">
+                                <span id="AeValue" class="value-display">1.0</span>
+                            </div>
+                        </div>
+                        <div class="toggleElement" id="toggleCalculator">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="scale-controls">
+                    <div class="scale-group">
+                        <div class="input-row">
+                            <label for="xMin">X Min:</label>
+                            <input type="range" id="xMin" min="-10" max="0" step="0.1" value="-6.28">
+                            <span id="xMinValue" class="value-display">-6.28</span>
+                        </div>
+                        <div class="input-row">
+                            <label for="xMax">X Max:</label>
+                            <input type="range" id="xMax" min="0" max="10" step="0.1" value="6.28">
+                            <span id="xMaxValue" class="value-display">6.28</span>
+                        </div>
+                    </div>
+
+                    <div class="scale-group">
+                        <div class="input-row">
+                            <label for="yMin">Y Min:</label>
+                            <input type="range" id="yMin" min="-10" max="0" step="0.1" value="-3">
+                            <span id="yMinValue" class="value-display">-3</span>
+                        </div>
+                        <div class="input-row">
+                            <label for="yMax">Y Max:</label>
+                            <input type="range" id="yMax" min="0" max="10" step="0.1" value="3">
+                            <span id="yMaxValue" class="value-display">3</span>
+                        </div>
+                        <div class="input-row">
+                            <label for="xMin">f⁽ⁿ⁾(x):</label>
+                            <input type="range" id="derivativeLevel" min="0" max="4" step="1" value="1">
+                            <span id="derivativeLevelValue" class="value-display">f(x)</span>
+                        </div>
+                    </div>
+
+                    <button id="resetScaleBtn">Reset Scale</button>
+                </div>
+            </div>
+            <div class="visualization">
+                <div id="plot-container">
+                    <div id="plot"></div>
+                </div>
+                <div class="info-panel">
+                    <div class="control-group">
+                        <h2><i class="fas fa-play-circle"></i> Controls</h2>
+                        <div class="buttons">
+                            <button id="playBtn"><i class="fas fa-play"></i></button>
+                            <button id="stopBtn"><i class="fas fa-stop"></i></button>
+                            <button id="resetBtn"><i class="fas fa-redo"></i></button>
+                            <button id="derivativeBtn">f'(x)</button>
+                            <button id="integralBtn"><i class="fas fa-calculator"></i>∫</button>
+                            <button id="clearIntegralBtn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <p class="coordinate-info">Coordinates: </p>
+                    <p id="coordDisplay">Hover over graph</p>
+                    <div class="derivative-info">Derivative: <span id="derivDisplay">-</span></div>
+                    <div class="info-box integral-info">
+                        <div class="info-title">Calculated Area</div>
+                        <div class="info-value" id="integralDisplay">0.0000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
