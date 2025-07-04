@@ -3,7 +3,7 @@
 An interactive function plotter that visualizes mathematical functions, their derivatives, and integrals with real-time controls.
 ![Chat App Preview](https://cdn.glitch.global/d003696d-9cab-4d96-baa5-bb1fa981a660/cipherconnect.png)  
 
-[Interactive Demo](https://cdn.glitch.global/79283f6f-ef1e-4285-822b-eaefe68c462e/m.png?v=1751414877731) - Try it out live in your browser
+[Interactive Demo](https://cdn.glitch.global/79283f6f-ef1e-4285-822b-eaefe68c462e/m.png?v=1751414877731.png) - Try it out live in your browser
 
 ## Features
 
