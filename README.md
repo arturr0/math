@@ -41,8 +41,3 @@ The custom function input supports mathematical expressions using:
 
 Example: `2*sin(3*x) + x^2 - 4`
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/function-plotter.git
